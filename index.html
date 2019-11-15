@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" type="text/css" href="new_file.css">
+	<script>
+		let count = 0;
+		let isgo = false;
+		let timer;
+
+		window.onload = function() {
+			let img3 = document.getElementsByClassName("big")[0];
+			let img2 = document.getElementsByClassName("img2");
+			let biao = document.getElementsByClassName("biao");
+			showtime();
+
+			function showtime() {
+				timer = setInterval(function() {
+					if (isgo == false) {
+						count++;
+						img3.style.transform = "translate(" + -800 * count + "px)";
+						if (count >= img2.length - 1) {
+							count = img2.length - 1;
+							isgo = true;
+						}
+					} else {
+						count--;
+						img3.style.transform = "translate(" + -800 * count + "px)";
+						if (count <= 0) {
+							count = 0;
+							isgo = false;
+						}
+					}
+				}, 4000)
+			}
+			for (let i = 0; i < biao.length; i++) {
+				biao[i].onmouseover = function() {
+					clearInterval(timer);
+				}
+				biao[i].onmouseout = function() {
+					showtime();
+				}
+				biao[i].onclick = function() {
+					if (this.title == 0) {
+						count++;
+						if (count > 3) {
+							count = 0;
+						}
+					} else {
+						count--;
+						if (count < 0) {
+							count = 3;
+						}
+					}
+
+					img3.style.transform = "translate(" + -800 * count + "px)";
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="pic">
+		<div class="biao">
+			<span title="1" class="biao" style="font-size: 60px">
+				<</span> 
+			<span title="0" class="biao" style="position: absolute;left: 750px;font-size: 60px;" >
+			></span>
+		</div>
+
+		<ul class="big">
+			<li class="img">
+				<img src="1.jpg">
+			</li>
+			<li class="img">
+				<img src="2.jpg">
+			</li>
+			<li class="img">
+				<img src="3.jpg">
+			</li>
+			<li class="img">
+				<img src="4.jpg">
+			</li>
+		</ul>
+	</div>
+</body>
